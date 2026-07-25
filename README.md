@@ -58,7 +58,7 @@ Or run **`pvd-product-vision`** once (Create). Activation copies either file int
 
 1. `pvd-product-vision` — Create with a product brief  
 2. Per phase: `bmad-prd` using `pvd.md` + `build-mode.md` + phase offset  
-3. When that phase’s **build** is done (not after PRD): `pvd-product-vision` **Close** — archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`; `{project-root}/pvd/` stays; then you run a fresh BMad install for the next phase  
+3. When that phase’s **build** is done (not after PRD): `pvd-product-vision` **Close** — archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`; `{project-root}/__pvd/` stays; then you run a fresh BMad install for the next phase  
 
 ## License
 
