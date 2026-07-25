@@ -26,7 +26,7 @@ npx bmad-method install \
   --yes
 ```
 
-**Important (BMad installer behavior):** `npx bmad-method install` only *stages* the module — skill → `.agents/skills/` (and IDE mirrors), stub → `_bmad/pvd/`. It does **not** write `_bmad/custom/bmad-prd.toml`. That file is a [skill customization](https://bmad-builder-docs.bmad-method.org/explanation/module-configuration/) (`_bmad/custom/{skill}.toml`), installed by the skill setup step — same pattern as official modules that say “run the setup skill after install” (e.g. BMad Loop).
+**Important (BMad installer behavior):** `npx bmad-method install` only *stages* the module — skill → `.agents/skills/` (and IDE mirrors), stub → `_bmad/pvd/`. It does **not** write `_bmad/custom/*.toml`. Those are [skill customizations](https://bmad-builder-docs.bmad-method.org/explanation/module-configuration/) (`_bmad/custom/{skill}.toml`), installed by the skill setup step — same pattern as official modules that say “run the setup skill after install” (e.g. BMad Loop).
 
 Finish setup:
 
@@ -34,7 +34,11 @@ Finish setup:
 /pvd-product-vision setup
 ```
 
-Or run **`pvd-product-vision`** once (Create). Activation copies `bmad-prd.toml` into `_bmad/custom/` if missing. Use `setup` / `configure` again only to reconfigure.
+Setup can install (default Yes, never overwrite without asking):
+- `_bmad/custom/bmad-prd.toml` — child PRDs load PVD facts / build mode
+- `_bmad/custom/bmad-code-review.toml` — autonomous review + push-to-`main` on approve
+
+Or run **`pvd-product-vision`** once (Create). Activation copies either file into `_bmad/custom/` if missing. Use `setup` / `configure` again only to reconfigure.
 
 ## Layout
 
@@ -45,7 +49,7 @@ Or run **`pvd-product-vision`** once (Create). Activation copies `bmad-prd.toml`
 ├── LICENSE
 └── pvd-product-vision/
     ├── SKILL.md
-    ├── assets/          # outlines, module.yaml, module-help.csv, bmad-prd.toml
+    ├── assets/          # outlines, module.yaml, module-help.csv, bmad-prd.toml, bmad-code-review.toml
     ├── references/      # research.md
     └── scripts/         # merge-config.py, merge-help-csv.py
 ```

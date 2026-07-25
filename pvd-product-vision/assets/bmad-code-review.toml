@@ -1,0 +1,53 @@
+# Team override for bmad-code-review (_bmad/custom/). Committed; survives BMad updates.
+# Merge: persistent_facts APPEND, on_complete OVERRIDES.
+# Behavior: run reviews autonomously (skip progress-confirmation checkpoints, auto-apply all
+# patches, HITL only for real decisions), then auto-push to GitHub when a review closes a story.
+
+[workflow]
+
+persistent_facts = [
+  "Code-review scope rule: It is normal for the next story file and/or its sprint-status entry to already be present while reviewing the current story. Treat unrelated next-story artifacts as out-of-scope background and ignore them. Do not raise findings to remove, split out, revert, or change a next-story file/status unless the user explicitly asks to review that next story or the current story's implementation directly depends on or corrupts it.",
+  """\
+Autonomous review mode — skip progress-confirmation checkpoints, always review the full diff, \
+auto-apply every patch. Run the review end to end and resolve findings yourself; only stop for \
+a genuine human DECISION, never to confirm forward progress. Concretely:\
+
+  - Step 1 (gather-context): once the review target and diff source are identified, do NOT halt at \
+    the final `### CHECKPOINT` confirmation — state the diff/scope summary for the record and proceed \
+    straight into the review. Always review the FULL diff: if it exceeds ~3000 lines, do NOT offer to \
+    chunk — review the whole thing.\
+
+  - Step 4 (present-and-act): do NOT ask how to handle `patch` findings. Skip that HALT and \
+    automatically take "Apply every patch" — fix every `patch` finding now with no per-finding \
+    confirmation, post the change summary, and check off the patch items. Never touch `defer` items.\
+
+  - Step 4 (next-steps menu, §7): do NOT halt to ask "what would you like to do next". Always \
+    auto-select option "3. Done — end the workflow" so the workflow terminates and runs On Complete \
+    (the GitHub commit + push). Never pick "Start the next story" or "Re-run code review" on your own.\
+
+  - HITL is still required for genuine DECISIONS, never for progress confirmation: keep the Step 4 \
+    `decision-needed` HALT (the correct fix is ambiguous and needs the user's call), and still halt \
+    only when an input truly cannot be inferred (no identifiable target/diff source; an empty, \
+    unparseable, invalid, or non-existent branch/range/diff). When unsure whether something is a real \
+    decision, ask.\
+""",
+]
+
+on_complete = """\
+Push to GitHub ONLY if this review marked the story "done" (approved). If it requested changes /
+loops back to dev, do nothing — skip silently.
+
+To push:
+  1. If not a git repo or `git remote` is empty, WARN with the reason and fix (git init / git remote
+     add origin <url>), then STOP — never block story completion.
+  2. Target branch: ALWAYS `main`. If HEAD is on another branch, checkout `main` and merge (or
+     cherry-pick) the story commit(s) onto `main` before pushing — never leave the result only on
+     a feature branch.
+  3. Commit any uncommitted story changes on `main`, message "<story-key>: <title>"; skip if tree
+     is clean.
+  4. `git push origin main`.
+  5. Report branch `main` + commit on success. On failure WARN with the git error and fix, but
+     never HALT or mark the story incomplete — the push is a convenience, not a gate.
+
+Never force-push, never push to a non-main branch, never create a remote.
+"""
