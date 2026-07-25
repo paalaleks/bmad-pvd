@@ -28,7 +28,8 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 - `{planning_artifacts}` → from `{project-root}/_bmad/bmm/config.yaml` (or `{project-root}/_bmad/config.toml` modules.bmm); fallback `{project-root}/_bmad-output/planning-artifacts`. Used for **child BMM** artifacts only — not for the PVD package.
 - `{doc_workspace}` → `{project-root}/__pvd` (the PVD package folder). Not under planning-artifacts.
 
-**Legacy:** If an old package exists only at `_bmad-output/planning-artifacts/pvd/` (or under an `__phase*_bmad-output/…/pvd/`), offer once to **move** it to `{project-root}/__pvd/` before continuing (also migrate a mistaken `{project-root}/pvd/` if present). Do not keep writing to the legacy path.
+**Legacy:** If an old package exists only at `_bmad-output/planning-artifacts/pvd/` (or under an `__phase*_bmad-output/.../pvd/`), or at a mistaken `{project-root}/pvd/`, offer once to **move** it to `{project-root}/__pvd/` before continuing. Do not keep writing to the legacy path.
+
 ## On Activation
 
 0. **Module registration (lightweight).**
