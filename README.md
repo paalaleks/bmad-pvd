@@ -26,7 +26,7 @@ npx bmad-method install \
   --yes
 ```
 
-Then run **`pvd-product-vision`** with `setup` / `configure` once (or on first use if `pvd` is not in `_bmad/config.yaml`). Setup can also install `_bmad/custom/bmad-prd.toml` so BMM PRD loads PVD facts and honors build mode.
+Then run **`pvd-product-vision`** once. The BMad installer places the skill and help entries; it does **not** copy `_bmad/custom/bmad-prd.toml`. On activation the skill installs that override if missing (so BMM PRD can load PVD facts and honor build mode). Use `setup` / `configure` only to reconfigure.
 
 ## Layout
 
