@@ -1,0 +1,21 @@
+code: pvd
+name: "Product Vision Document"
+description: "Before-anything workflow: overarching PVD, build mode, and phase offsets for collision-safe child BMM PRDs."
+module_version: 1.0.0
+default_selected: true
+module_greeting: >
+  Product Vision Document (pvd) is registered. Run pvd-product-vision to forge a program spine,
+  or pass setup/configure to re-run module setup. Child BMM PRDs pick up build-mode via the team
+  override when installed.
+
+# No custom config variables — uses BMM planning_artifacts when present.
+# Optional: install BMM PRD customize during setup (see module-setup.md extension).
+
+directories:
+  - "{project-root}/_bmad-output/planning-artifacts/pvd"
+  - "{project-root}/_bmad-output/planning-artifacts/pvd/offsets"
+
+post-install-notes: >
+  Next: invoke pvd-product-vision with a product brief (Create). After finalize, run bmad-prd
+  per phase with pvd.md + build-mode.md + the phase offset. If you accepted the PRD override,
+  check _bmad/custom/bmad-prd.toml.

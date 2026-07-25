@@ -1,0 +1,30 @@
+{
+  "name": "pvd",
+  "owner": {
+    "name": "PaalA"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/paalaleks/bmad-pvd",
+  "repository": "https://github.com/paalaleks/bmad-pvd",
+  "keywords": [
+    "bmad",
+    "pvd",
+    "product-vision",
+    "multi-phase",
+    "prd"
+  ],
+  "plugins": [
+    {
+      "name": "pvd",
+      "source": "./",
+      "description": "Before-anything workflow: overarching PVD, build mode, and phase offsets for collision-safe child BMM PRDs.",
+      "version": "1.0.0",
+      "author": {
+        "name": "PaalA"
+      },
+      "skills": [
+        "./pvd-product-vision"
+      ]
+    }
+  ]
+}

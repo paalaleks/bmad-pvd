@@ -1,0 +1,3 @@
+# Ignore builder process memory in published module trees (optional)
+**/pvd-product-vision/.memlog.md
+**/reports/
