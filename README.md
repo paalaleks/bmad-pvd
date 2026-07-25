@@ -50,7 +50,7 @@ Or run **`pvd-product-vision`** once (Create). Activation copies either file int
 └── pvd-product-vision/
     ├── SKILL.md
     ├── assets/          # outlines, module.yaml, module-help.csv, bmad-prd.toml, bmad-code-review.toml
-    ├── references/      # research.md
+    ├── references/      # research.md, phase-close.md
     └── scripts/         # merge-config.py, merge-help-csv.py
 ```
 
@@ -58,6 +58,7 @@ Or run **`pvd-product-vision`** once (Create). Activation copies either file int
 
 1. `pvd-product-vision` — Create with a product brief  
 2. Per phase: `bmad-prd` using `pvd.md` + `build-mode.md` + phase offset  
+3. When that phase’s **build** is done (not after PRD): `pvd-product-vision` **Close** — archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`, preserves/restores the PVD package, then you run a fresh BMad install for the next phase  
 
 ## License
 
