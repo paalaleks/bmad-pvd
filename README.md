@@ -26,7 +26,15 @@ npx bmad-method install \
   --yes
 ```
 
-Then run **`pvd-product-vision`** once. The BMad installer places the skill and help entries; it does **not** copy `_bmad/custom/bmad-prd.toml`. On activation the skill installs that override if missing (so BMM PRD can load PVD facts and honor build mode). Use `setup` / `configure` only to reconfigure.
+**Important (BMad installer behavior):** `npx bmad-method install` only *stages* the module — skill → `.agents/skills/` (and IDE mirrors), stub → `_bmad/pvd/`. It does **not** write `_bmad/custom/bmad-prd.toml`. That file is a [skill customization](https://bmad-builder-docs.bmad-method.org/explanation/module-configuration/) (`_bmad/custom/{skill}.toml`), installed by the skill setup step — same pattern as official modules that say “run the setup skill after install” (e.g. BMad Loop).
+
+Finish setup:
+
+```text
+/pvd-product-vision setup
+```
+
+Or run **`pvd-product-vision`** once (Create). Activation copies `bmad-prd.toml` into `_bmad/custom/` if missing. Use `setup` / `configure` again only to reconfigure.
 
 ## Layout
 
