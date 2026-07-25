@@ -4,18 +4,18 @@ description: "Before-anything workflow: overarching PVD, build mode, and phase o
 module_version: 1.0.0
 default_selected: true
 module_greeting: >
-  Product Vision Document (pvd) is registered. Run pvd-product-vision to forge a program spine,
-  or pass setup/configure to re-run module setup. Accepted team customizes land under
-  _bmad/custom/ (bmad-prd.toml, bmad-code-review.toml).
+  Product Vision Document (pvd) is registered. Run pvd-product-vision to forge a program spine
+  under {project-root}/pvd/ (outside _bmad-output). Or pass setup/configure to re-run module setup.
+  Accepted team customizes land under _bmad/custom/ (bmad-prd.toml, bmad-code-review.toml).
 
-# No custom config variables — uses BMM planning_artifacts when present.
 # Optional: install team customizes during setup (see module-setup.md).
 
 directories:
-  - "{project-root}/_bmad-output/planning-artifacts/pvd"
-  - "{project-root}/_bmad-output/planning-artifacts/pvd/offsets"
+  - "{project-root}/pvd"
+  - "{project-root}/pvd/offsets"
 
 post-install-notes: >
-  Next: invoke pvd-product-vision with a product brief (Create). After finalize, run bmad-prd
-  per phase with pvd.md + build-mode.md + the phase offset. If you accepted team customizes,
-  check _bmad/custom/bmad-prd.toml and _bmad/custom/bmad-code-review.toml.
+  Next: invoke pvd-product-vision with a product brief (Create). Package path is {project-root}/pvd/.
+  After finalize, run bmad-prd per phase with pvd.md + build-mode.md + the phase offset. After a
+  phase build completes, Close archives _bmad-output/docs only — pvd/ stays. If you accepted team
+  customizes, check _bmad/custom/bmad-prd.toml and _bmad/custom/bmad-code-review.toml.

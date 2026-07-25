@@ -1,23 +1,24 @@
 # Team override: BMM PRD ↔ Product Vision Document (PVD)
 # Lightweight — sources + build-mode guardrails only.
+# PVD lives at {project-root}/pvd/ (outside _bmad-output / docs archives).
 
 [workflow]
 
 # Load PVD package when present (missing files are simply absent).
 persistent_facts = [
-  "file:{project-root}/_bmad-output/planning-artifacts/pvd/pvd.md",
-  "file:{project-root}/_bmad-output/planning-artifacts/pvd/build-mode.md",
-  "file:{project-root}/_bmad-output/planning-artifacts/pvd/architecture-principles.md",
-  "file:{project-root}/_bmad-output/planning-artifacts/pvd/phases.md",
-  "file:{project-root}/_bmad-output/planning-artifacts/pvd/deferred-decisions.md",
-  "When a PVD package exists under planning-artifacts/pvd/, this PRD is a child of that program: compose sources as pvd.md + build-mode.md + the phase offset under pvd/offsets/ for the phase being planned (+ any extra brief/brain dump the user supplies).",
+  "file:{project-root}/pvd/pvd.md",
+  "file:{project-root}/pvd/build-mode.md",
+  "file:{project-root}/pvd/architecture-principles.md",
+  "file:{project-root}/pvd/phases.md",
+  "file:{project-root}/pvd/deferred-decisions.md",
+  "When a PVD package exists under {project-root}/pvd/, this PRD is a child of that program: compose sources as pvd.md + build-mode.md + the phase offset under pvd/offsets/ for the phase being planned (+ any extra brief/brain dump the user supplies).",
   "Honor build-mode.md: under early-development, do not require premature hardening, large security programs, production-scale backfills, or user-scale ops — route those to the production-readiness phase or mark out of scope with a pointer.",
   "Stay inside this phase's ownership/collision boundaries from phases.md and architecture-principles.md; do not claim work owned by another phase.",
   "If no PVD package exists, run standard PRD discovery unchanged.",
 ]
 
 activation_steps_append = [
-  "If {project-root}/_bmad-output/planning-artifacts/pvd/pvd.md exists, ask which phase this PRD covers (from phases.md / offsets/) before Discovery deepens — and treat that phase's offset file as a required input alongside the brief.",
+  "If {project-root}/pvd/pvd.md exists, ask which phase this PRD covers (from phases.md / offsets/) before Discovery deepens — and treat that phase's offset file as a required input alongside the brief.",
 ]
 
 finalize_reviewers = [
