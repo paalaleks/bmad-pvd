@@ -2,8 +2,23 @@
 
 Standalone module self-registration. This file is loaded when:
 - The user passes `setup`, `configure`, or `install` as an argument
-- The module is not yet registered in `{project-root}/_bmad/config.yaml`
-- The skill's first-run init flow detects this is a fresh installation (e.g., agent memory doesn't exist yet)
+- The module is not yet registered and silent or interactive registration was requested by SKILL.md
+- The skill's first-run init flow detects this is a fresh installation
+
+**Registered means any of:** `{project-root}/_bmad/config.yaml` has a top-level `pvd` key; `{project-root}/_bmad/config.toml` has `[modules.pvd]`; or `{project-root}/_bmad/module-help.csv` contains skill `pvd-product-vision`.
+
+## Silent / accept-all mode
+
+When SKILL.md requests silent registration (BMad already configured; user did not pass setup):
+
+1. Do **not** ask for `user_name`, language, or `output_folder` — reuse existing values from `config.toml` / `config.yaml` / `config.user.*` (map `user_name` / `communication_language` from `config.user.toml` when present).
+2. Run Write Files + Create Output Directories with those defaults.
+3. Also ensure `{project-root}/_bmad/custom/config.toml` (or team custom) contains an empty or minimal `[modules.pvd]` table so toml-based installs recognize the module — create the file section if missing (do not wipe other custom tables).
+4. **PRD override:** if `{project-root}/_bmad/custom/bmad-prd.toml` is missing, copy `./assets/bmad-prd.toml` there. If it already exists, leave it unchanged (no prompt in silent mode).
+5. Tell the user in one line that PVD was registered; then Return to Skill.
+
+Interactive prompting below applies only to explicit setup/configure or true greenfield (no BMad config yet).
+
 
 ## Overview
 

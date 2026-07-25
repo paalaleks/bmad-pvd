@@ -29,7 +29,11 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 
 ## On Activation
 
-0. **Module registration.** If the user passed `setup`, `configure`, or `install` — or if `{project-root}/_bmad/config.yaml` has no `pvd` section — load `./assets/module-setup.md` and complete registration (and optional BMM PRD override install) before continuing.
+0. **Module registration (lightweight).**
+   - If the user passed `setup`, `configure`, or `install` → load `./assets/module-setup.md` (interactive / reconfigure).
+   - Else if PVD is already registered → skip (registered = `{project-root}/_bmad/config.yaml` has a `pvd` key, **or** `{project-root}/_bmad/config.toml` has `[modules.pvd]`, **or** `{project-root}/_bmad/module-help.csv` lists `pvd-product-vision`).
+   - Else if BMad is already configured (`config.toml` or `config.yaml` / `config.user.*` present with core or other modules) → **silent register**: load `./assets/module-setup.md` in accept-all / non-interactive mode — do **not** re-ask `user_name`, language, or `output_folder`. Install `bmad-prd.toml` only if missing; never overwrite an existing override without asking. One short line to the user: "Registered PVD module; continuing."
+   - Else (no BMad config yet) → full `./assets/module-setup.md` interactive setup.
 1. Load `{project-root}/_bmad/bmm/config.yaml` (+ `config.user.yaml` if present) and/or `{project-root}/_bmad/config.toml`. Resolve `{user_name}`, `{communication_language}`, `{document_output_language}`, `{planning_artifacts}`, `{project_name}`, `{date}`. Missing keys → sensible defaults; never block.
 2. Greet `{user_name}` in `{communication_language}` and stay in that language. Mention `bmad-party-mode` / `bmad-advanced-elicitation` if useful later.
 3. Detect intent: **Create** (new or empty PVD), **Update** (revise existing), **Overview** (where-we-are). If ambiguous, ask once. Scan `{doc_workspace}` for existing `pvd.md` / `.memlog.md` — offer resume when an in-progress package exists.
