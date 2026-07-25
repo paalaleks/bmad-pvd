@@ -14,7 +14,7 @@ When SKILL.md requests silent registration (BMad already configured; user did no
 1. Do **not** ask for `user_name`, language, or `output_folder` — reuse existing values from `config.toml` / `config.yaml` / `config.user.*` (map `user_name` / `communication_language` from `config.user.toml` when present).
 2. Run Write Files + Create Output Directories with those defaults.
 3. Also ensure `{project-root}/_bmad/custom/config.toml` (or team custom) contains an empty or minimal `[modules.pvd]` table so toml-based installs recognize the module — create the file section if missing (do not wipe other custom tables).
-4. **PRD override:** if `{project-root}/_bmad/custom/bmad-prd.toml` is missing, copy `./assets/bmad-prd.toml` there. If it already exists, leave it unchanged (no prompt in silent mode).
+4. **Team customizes:** if missing, copy `./assets/bmad-prd.toml` → `{project-root}/_bmad/custom/bmad-prd.toml` and `./assets/bmad-code-review.toml` → `{project-root}/_bmad/custom/bmad-code-review.toml`. If either already exists, leave it unchanged (no prompt in silent mode).
 5. Tell the user in one line that PVD was registered; then Return to Skill.
 
 Interactive prompting below applies only to explicit setup/configure or true greenfield (no BMad config yet).
@@ -87,20 +87,29 @@ If `./assets/module.yaml` contains a `directories` array, also create each liste
 
 If `./assets/module.yaml` contains a `directories` array, also create each listed directory (resolving any `{field_name}` variables from the collected config values).
 
-## Install BMM PRD team override (PVD extension)
+## Install team customizes
+
+Create `{project-root}/_bmad/custom/` if missing. Ask for each override separately (default **Yes**). Neither modifies upstream skill code; both use BMad customization merge (`_bmad/custom/{skill}.toml`).
+
+### BMM PRD override (PVD extension)
 
 Ask once (default **Yes**): install the lightweight BMM PRD customize so child PRDs load PVD facts and honor build mode?
 
 - **Yes (default):** Copy `./assets/bmad-prd.toml` to `{project-root}/_bmad/custom/bmad-prd.toml`.
   - If a file already exists, show a short diff/summary and ask before overwrite (do not clobber silently).
-  - Create `{project-root}/_bmad/custom/` if missing.
 - **No:** Skip. User can copy later from the skill assets.
 
-This override does not modify BMM skill code; it only appends workflow facts via BMad customization merge.
+### Code-review override (team preference)
+
+Ask once (default **Yes**): install the autonomous `bmad-code-review` customize (skip progress checkpoints, auto-apply patches, HITL only for real decisions; push to `main` when a review marks the story done)?
+
+- **Yes (default):** Copy `./assets/bmad-code-review.toml` to `{project-root}/_bmad/custom/bmad-code-review.toml`.
+  - If a file already exists, show a short diff/summary and ask before overwrite (do not clobber silently).
+- **No:** Skip. User can copy later from the skill assets.
 
 ## Confirm
 
-Use the script JSON output to display what was written — config values set (written to `config.yaml` at root for core, module section for module values), user settings written to `config.user.yaml` (`user_keys` in result), help entries added, fresh install vs update. Also report whether `bmad-prd.toml` was installed, skipped, or left unchanged.
+Use the script JSON output to display what was written — config values set (written to `config.yaml` at root for core, module section for module values), user settings written to `config.user.yaml` (`user_keys` in result), help entries added, fresh install vs update. Also report for each of `bmad-prd.toml` and `bmad-code-review.toml` whether it was installed, skipped, or left unchanged.
 
 If `./assets/module.yaml` contains `post-install-notes`, display them (if conditional, show only the notes matching the user's selected config values).
 

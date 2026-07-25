@@ -5,11 +5,11 @@ module_version: 1.0.0
 default_selected: true
 module_greeting: >
   Product Vision Document (pvd) is registered. Run pvd-product-vision to forge a program spine,
-  or pass setup/configure to re-run module setup. Child BMM PRDs pick up build-mode via the team
-  override when installed.
+  or pass setup/configure to re-run module setup. Accepted team customizes land under
+  _bmad/custom/ (bmad-prd.toml, bmad-code-review.toml).
 
 # No custom config variables — uses BMM planning_artifacts when present.
-# Optional: install BMM PRD customize during setup (see module-setup.md extension).
+# Optional: install team customizes during setup (see module-setup.md).
 
 directories:
   - "{project-root}/_bmad-output/planning-artifacts/pvd"
@@ -17,5 +17,5 @@ directories:
 
 post-install-notes: >
   Next: invoke pvd-product-vision with a product brief (Create). After finalize, run bmad-prd
-  per phase with pvd.md + build-mode.md + the phase offset. If you accepted the PRD override,
-  check _bmad/custom/bmad-prd.toml.
+  per phase with pvd.md + build-mode.md + the phase offset. If you accepted team customizes,
+  check _bmad/custom/bmad-prd.toml and _bmad/custom/bmad-code-review.toml.
