@@ -2,7 +2,7 @@
 
 Lock principles and coherence rules — not concrete folder trees or framework wiring unless multi-phase impact is clear. Prefer **architecture dictionary** terms (bounded context, deployment unit, contract, published language, etc.) so Research and later phase docs share searchable language.
 
-Heavy *implementation* (hardening, security programs, backfills) → `assets/build-mode-outline.md` / readiness phase — not the spine.
+Heavy *implementation* detail (concrete scaffolding, full security programs, ops runbooks) → phase architecture or `deferred-decisions.md` — not the spine unless multi-phase impact is clear.
 
 Judgment menu (pick what must stay coherent across phases; defer the rest):
 

@@ -25,7 +25,7 @@ Examples: `__phase1_bmad-output`, `__phase2_docs`. Phase number from `phases.md`
 3. Update `{project-root}/__pvd/phases.md` (status, archive paths, date, next offset).
 4. User runs a **fresh** `npx bmad-method install` (same modules/custom-source as before) so a new empty `_bmad-output/` (and `docs/` if needed) exists.
 5. If team customizes were wiped, re-run `pvd-product-vision setup` — or rely on activation to re-copy missing `bmad-prd.toml` / `bmad-code-review.toml`.
-6. Next: BMM `bmad-prd` for the next phase — sources still `{project-root}/__pvd/` (`pvd.md` + `build-mode.md` + offset).
+6. Next: BMM `bmad-prd` for the next phase — sources still `{project-root}/__pvd/` (`pvd.md` + offset).
 
 No hold/restore of PVD. No nested installs.
 

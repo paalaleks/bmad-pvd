@@ -12,13 +12,13 @@ Decisions are drafted first; Research is sent off against them. Early research o
 
 ## How to run
 
-1. **Extract the candidate lock set** from the drafted package (principles, stack *rules*, ownership/collision boundaries, contracts, build-mode constraints) — not every vision sentence. Drop or rewrite claims that are still implementation scaffolding.
+1. **Extract the candidate lock set** from the drafted package (principles, stack *rules*, ownership/collision boundaries, contracts) — not every vision sentence. Drop or rewrite claims that are still implementation scaffolding.
 2. **Normalize wording** with the glossaries below before naming claims or search terms. Wrong wording fails the control gate.
 3. **Hand off to `bmad-technical-research`** with topic/goals already set — skip its interactive "What do you want to research?" discovery:
    - `research_type` = `technical`
    - `research_topic` = short title derived from the program + "PVD principle durability" (e.g. `autocompete-pvd-architecture-durability`)
    - `research_goals` = validate keep/change/defer for the lock-set claims; stay at principle altitude; do not produce monorepo scaffolding
-   - Seed context: paths under `{doc_workspace}/` (`architecture-principles.md`, `build-mode.md`, `phases.md`, offsets summary) plus the bullet list of claims/search terms
+   - Seed context: paths under `{doc_workspace}/` (`architecture-principles.md`, `phases.md`, offsets summary) plus the bullet list of claims/search terms
 4. Let that skill produce its normal report under `{planning_artifacts}/research/` (ephemeral with the BMad cycle — fine).
 5. **Write `{doc_workspace}/feasibility-research.md`** (durable, under `__pvd/`): each canonical claim → search terms → evidence pointers (cite the technical report + primary sources) → **keep** | **change** | **defer** → why. Group by theme.
 6. Surface **change** and **defer** before Finalize; apply agreed updates to spine/deferred list; log via memlog.
@@ -67,5 +67,5 @@ Translation aid, not a mandatory taxonomy. Smallest accurate term.
 | Guardrails; input/output filtering; policy layer | "safety" (alone) | Cross-phase safety controls ownership |
 | Model gateway / router; provider abstraction | "which model" | Swap-out without multi-phase rewrite |
 | Prompt/version registry; skill or agent definition as artifact | "the prompts in the code" | How prompt/agent assets version across phases |
-| YAGNI; premature optimization / premature hardening | "make it solid now" | Whether early phases over-build |
-| Production readiness / hardening phase | "polish later" (vague) | Dedicated late PRD for security, backfills, ops |
+| YAGNI; premature optimization | "make it solid now" | Whether early phases over-build |
+| Scope deferred to a later phase | "polish later" (vague) | What phase architecture / offset owns |

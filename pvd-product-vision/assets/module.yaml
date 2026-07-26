@@ -1,6 +1,6 @@
 code: pvd
 name: "Product Vision Document"
-description: "Before-anything workflow: overarching PVD, build mode, and phase offsets for collision-safe child BMM PRDs."
+description: "Before-anything workflow: overarching PVD and phase offsets for collision-safe child BMM PRDs."
 module_version: 1.0.0
 default_selected: true
 module_greeting: >
@@ -16,6 +16,6 @@ directories:
 
 post-install-notes: >
   Next: invoke pvd-product-vision with a product brief (Create). Package path is {project-root}/__pvd/.
-  After finalize, run bmad-prd per phase with pvd.md + build-mode.md + the phase offset. After a
-  phase build completes, Close archives _bmad-output/docs only — pvd/ stays. If you accepted team
-  customizes, check _bmad/custom/bmad-prd.toml and _bmad/custom/bmad-code-review.toml.
+  After finalize, run bmad-prd per phase with pvd.md + the phase offset. After a phase build completes,
+  Close archives _bmad-output/docs only — __pvd/ stays. If you accepted team customizes, check
+  _bmad/custom/bmad-prd.toml and _bmad/custom/bmad-code-review.toml.

@@ -93,7 +93,7 @@ Create `{project-root}/_bmad/custom/` if missing. Ask for each override separate
 
 ### BMM PRD override (PVD extension)
 
-Ask once (default **Yes**): install the lightweight BMM PRD customize so child PRDs load PVD facts and honor build mode?
+Ask once (default **Yes**): install the lightweight BMM PRD customize so child PRDs load PVD facts and phase boundaries?
 
 - **Yes (default):** Copy `./assets/bmad-prd.toml` to `{project-root}/_bmad/custom/bmad-prd.toml`.
   - If a file already exists, show a short diff/summary and ask before overwrite (do not clobber silently).

@@ -12,4 +12,4 @@ Suggested spine for `pvd.md`:
 - How child PRDs consume this document
 - Open questions at program level
 
-Build mode → `build-mode.md` (do not duplicate here). Architecture principles → `architecture-principles.md`.
+Architecture principles → `architecture-principles.md` (do not duplicate here).

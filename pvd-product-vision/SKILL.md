@@ -11,12 +11,11 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 
 **Consumers:** Devs and PMs starting child PRDs.
 
-**Success criteria:** Locked principles are durable under tech/architecture research; deferred decisions are named; phase ownership does not collide; build mode is respected.
+**Success criteria:** Locked principles are durable under tech/architecture research; deferred decisions are named; phase ownership does not collide.
 
 ## Constraints
 
 - Prefer principles and coherence over concrete codebase setup. Phase-local choices → offset or deferred list.
-- **Build mode** constrains early PRDs: no premature hardening, production security programs, backfills, or user-scale ops — those wait for an explicit production-readiness phase. Soft prior: `assets/build-mode-outline.md`.
 - Write spine claims in architecture and AI vocabulary (when the program includes AI) so Research can search accurately.
 - Do not decide one-PRD vs many; the user chose the PVD path.
 - **Never** place the PVD package under `_bmad-output/` or `docs/` — those folders are archived per phase (`__phaseN_*`).
@@ -28,7 +27,7 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 - `{planning_artifacts}` → from `{project-root}/_bmad/bmm/config.yaml` (or `{project-root}/_bmad/config.toml` modules.bmm); fallback `{project-root}/_bmad-output/planning-artifacts`. Used for **child BMM** artifacts only — not for the PVD package.
 - `{doc_workspace}` → `{project-root}/__pvd` (the PVD package folder). Not under planning-artifacts.
 
-**Legacy:** If an old package exists only at `_bmad-output/planning-artifacts/pvd/` (or under an `__phase*_bmad-output/.../pvd/`), or at a mistaken `{project-root}/pvd/`, offer once to **move** it to `{project-root}/__pvd/` before continuing. Do not keep writing to the legacy path.
+**Legacy:** If an old package exists only at `_bmad-output/planning-artifacts/pvd/` (or under an `__phase*_bmad-output/.../pvd/`), or at a mistaken `{project-root}/pvd/`, offer once to **move** it to `{project-root}/__pvd/` before continuing. Do not keep writing to the legacy path. Ignore or archive a leftover `build-mode.md` if present — build mode is not part of this workflow.
 
 ## On Activation
 
@@ -46,11 +45,12 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 
 **Create.** Bind `{doc_workspace}` to `{project-root}/__pvd/`. Ensure `offsets/` exists. Write skeleton files with `status: draft` where useful. Seed memlog: `uv run {project-root}/_bmad/scripts/memlog.py init --path {doc_workspace}/.memlog.md --field topic="<program>"`. Tell the user the path. Run Discovery → Forge → Carve → Research → Finalize.
 
-**Update.** Change signal against an existing package. Read `pvd.md`, `architecture-principles.md`, `build-mode.md`, `deferred-decisions.md`, `phases.md`, offsets, `feasibility-research.md` if present, and `.memlog.md` once. Surface conflicts with prior decisions before applying. Re-run Research when the change touches tech/architecture principles. Then Finalize.
+**Update.** Change signal against an existing package. Read `pvd.md`, `architecture-principles.md`, `deferred-decisions.md`, `phases.md`, offsets, `feasibility-research.md` if present, and `.memlog.md` once. Surface conflicts with prior decisions before applying. Re-run Research when the change touches tech/architecture principles. Then Finalize.
 
 **Overview.** Read the package (and optional links to child BMM artifacts the user points at). Scan `{project-root}` for `__phase*_bmad-output` / `__phase*_docs` and reconcile with `phases.md`. Refresh `phases.md` so a newcomer sees phase status, ownership boundaries, archive paths, and pointers to offsets / child PRDs. Do not rewrite principles unless the user switches to Update. If the user is ready to finish a build phase, offer **Close**.
 
 **Close.** Load `references/phase-close.md` and run that ritual. Gate: phase **build** complete (full BMM delivery), not "PRD finished." Confirm phase number N with the user. Rename `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs` (skip docs rename if absent). Leave `{project-root}/__pvd/` untouched. Update `phases.md` (status, archive paths, date, next offset). Tell the user to run a fresh `npx bmad-method install`, then start the next phase’s `bmad-prd` using the same `{project-root}/__pvd/` sources. Append memlog event for the close. Same project root — archive + reinstall, no nesting.
+
 ## Discovery
 
 Open the floor: invite the full product vision and any written brief, brain dump, or docs to read. Paths or paste. Soft "anything else?" after. Mine what you hold before asking; gaps a question or two at a time.
@@ -63,10 +63,7 @@ Draft and confirm the parent spine:
 
 - `pvd.md` — overarching product vision (soft prior: `assets/pvd-outline.md`)
 - `architecture-principles.md` — stack *rules*, ownership, coherence (soft prior: `assets/architecture-principles-outline.md`)
-- `build-mode.md` — child-PRD constraint rules (soft prior: `assets/build-mode-outline.md`)
 - `deferred-decisions.md` — intentionally undecided → phase architecture
-
-Confirm build mode early (default: delivery phases = `early-development`; optional final phase = `production-readiness`). Security *principles* may live on the spine; heavy security *implementation* waits for readiness unless a phase cannot exist without it.
 
 **Altitude rule:** if reversing a decision later would force *multiple* child PRDs to rewrite, it belongs on the spine. If only one phase would care, offset or defer. Polyglot: share contracts/boundaries on the spine; language-specific setup stays deferred.
 
@@ -78,14 +75,12 @@ Show drafts as thinking firms up; write when confirmed.
 
 Produce collision-safe phases:
 
-- `phases.md` — registry, ownership map, how child PRDs compose (`pvd.md` + `build-mode.md` + offset + optional extras). Include per-phase fields the Close ritual will fill later: `status` (e.g. planned / in-build / archived), and placeholders for `archive_bmad_output` / `archive_docs` (empty until Close).
+- `phases.md` — registry, ownership map, how child PRDs compose (`pvd.md` + offset + optional extras). Include per-phase fields the Close ritual will fill later: `status` (e.g. planned / in-build / archived), and placeholders for `archive_bmad_output` / `archive_docs` (empty until Close).
 - `offsets/phase-NN-<slug>.md` — phase-scoped vision slices
 
 **Lifecycle (simple):** each phase is a full BMM cycle at this project root. After **build** completes (not after PRD), **Close** archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`, then a fresh BMad install starts the next cycle. Details: `references/phase-close.md`.
 
 **Collision rule:** two phases must not both own the same source tree or deployable. Shared packages are stable contracts, not dual-owned guts.
-
-Under `early-development`, usually include (or leave a slot for) a final **production-readiness** phase for postponed hardening/security/backfills/ops — unless the user declines (log that decision).
 
 Forge and Carve may complete in one session; Research still gates Finalize.
 
@@ -99,7 +94,7 @@ Run after Forge + Carve (and on Update when principles change) — **not** befor
 2. Apply Research verdicts: keep / change spine / expand deferred — no silent ignore of **change** or **defer** findings.
 3. Set primary docs to `status: final` (or equivalent) and `updated: {date}`.
 4. `uv run {project-root}/_bmad/scripts/memlog.py append --path {doc_workspace}/.memlog.md --type event --text "PVD finalized"` then `set-complete` on that path.
-5. Share artifact paths (`{project-root}/__pvd/…`). Next: BMM `bmad-prd` for the **first** (or next active) phase with sources = that package’s `pvd.md` + `build-mode.md` + phase offset (+ optional brief). Architecture constrained by `architecture-principles.md` and build mode. Team PRD override loads these from `{project-root}/__pvd/` when present. Remind: after that phase’s **build** is done, run **Close** (archive `__phaseN_*` only — PVD stays) then reinstall before the next phase PRD — see `references/phase-close.md`.
+5. Share artifact paths (`{project-root}/__pvd/…`). Next: BMM `bmad-prd` for the **first** (or next active) phase with sources = that package’s `pvd.md` + phase offset (+ optional brief). Architecture constrained by `architecture-principles.md`. Team PRD override loads these from `{project-root}/__pvd/` when present. Remind: after that phase’s **build** is done, run **Close** (archive `__phaseN_*` only — PVD stays) then reinstall before the next phase PRD — see `references/phase-close.md`.
 
 ## Headless Mode
 
