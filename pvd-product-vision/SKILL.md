@@ -91,7 +91,7 @@ Forge and Carve may complete in one session; Research still gates Finalize.
 
 ## Research
 
-Load `references/research.md` and run it before Finalize on Create (and on Update when principles change). Tech and architecture fit only. Normalize claims into canonical vocabulary before searching — see that file's glossaries.
+Run after Forge + Carve (and on Update when principles change) — **not** before. Load `references/research.md`: build the lock-set brief, then execute `{project-root}/.agents/skills/bmad-technical-research/SKILL.md` with topic/goals pre-set (skip its interactive topic discovery). Map keep/change/defer into `{doc_workspace}/feasibility-research.md`. Tech and architecture fit only; principle altitude.
 
 ## Finalize
 
