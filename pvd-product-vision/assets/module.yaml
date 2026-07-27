@@ -6,7 +6,7 @@ default_selected: true
 module_greeting: >
   Product Vision Document (pvd) is registered. Run pvd-product-vision to forge a program spine
   under {project-root}/__pvd/ (outside _bmad-output). Or pass setup/configure to re-run module setup.
-  Accepted team customizes land under _bmad/custom/ (bmad-prd.toml, bmad-code-review.toml).
+  Accepted team customizes land under _bmad/custom/ (bmad-prd, code-review, ux mock HITL, create-epics, create-story).
 
 # Optional: install team customizes during setup (see module-setup.md).
 
@@ -18,4 +18,4 @@ post-install-notes: >
   Next: invoke pvd-product-vision with a product brief (Create). Package path is {project-root}/__pvd/.
   After finalize, run bmad-prd per phase with pvd.md + the phase offset. After a phase build completes,
   Close archives _bmad-output/docs only — __pvd/ stays. If you accepted team customizes, check
-  _bmad/custom/bmad-prd.toml and _bmad/custom/bmad-code-review.toml.
+  _bmad/custom/bmad-prd.toml, bmad-code-review.toml, bmad-ux.toml, and create-epics/create-story UI-mock pointers.
