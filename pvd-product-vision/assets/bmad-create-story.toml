@@ -1,0 +1,19 @@
+# Team override for bmad-create-story.
+# UI-heavy stories inherit UX mock approval (or skip+rationale) so it cannot get lost at impl time.
+
+[workflow]
+
+persistent_facts = [
+  "file:{project-root}/_bmad-output/planning-artifacts/ux-designs/**/DESIGN.md",
+  "file:{project-root}/_bmad-output/planning-artifacts/ux-designs/**/EXPERIENCE.md",
+  """\
+When creating a story that includes user-visible UI:
+
+  1. Scan the latest finalized UX run under planning-artifacts/ux-designs/ for mockups/ and skip rationales.
+  2. Add an acceptance criterion (or Dev Notes block) that either:
+     - References the approved HTML mockup path(s) the UI must match (spine tokens win on conflict), OR
+     - States Mockup skipped: <rationale> (must match UX memlog/EXPERIENCE — do not invent a new skip here).
+  3. If the story needs novel UI with no mock and no UX skip rationale, do NOT mark ready-for-dev — note blocker: run bmad-ux Update for that surface first.
+  4. Non-UI stories: no mockup AC.
+""",
+]

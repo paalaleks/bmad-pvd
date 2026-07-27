@@ -26,7 +26,12 @@ npx bmad-method install \
   --yes
 ```
 
-Then run **`pvd-product-vision`** with `setup` / `configure` once (or on first use if `pvd` is not in `_bmad/config.yaml`). Setup can also install team customizes: `_bmad/custom/bmad-prd.toml` and `_bmad/custom/bmad-code-review.toml`.
+**Important:** `npx bmad-method install` only *stages* the skill. Run **`pvd-product-vision setup`** (or first Create) to install team customizes into `_bmad/custom/` if missing:
+
+- `bmad-prd.toml` — child PRDs load PVD facts
+- `bmad-code-review.toml` — autonomous review + push-to-`main` on approve
+- `bmad-ux.toml` — HTML mock HITL before epics (or skip with rationale)
+- `bmad-create-epics-and-stories.toml` / `bmad-create-story.toml` — UI-heavy stories cite mocks or skip rationales
 
 ## Layout
 
@@ -37,16 +42,16 @@ Then run **`pvd-product-vision`** with `setup` / `configure` once (or on first u
 ├── LICENSE
 └── pvd-product-vision/
     ├── SKILL.md
-    ├── assets/          # outlines, module.yaml, module-help.csv, bmad-prd.toml, bmad-code-review.toml
-    ├── references/      # research.md
-    └── scripts/         # merge-config.py, merge-help-csv.py
+    ├── assets/          # outlines, module.yaml, team customize tomls
+    ├── references/      # research.md, phase-close.md
+    └── scripts/
 ```
 
 ## After install
 
-1. `pvd-product-vision` — Create with a product brief  
-2. Per phase: `bmad-prd` using `pvd.md` + phase offset  
-3. When that phase’s **build** is done (not after PRD): `pvd-product-vision` **Close** — archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`; `{project-root}/__pvd/` stays; then fresh BMad install for the next phase  
+1. `pvd-product-vision` — Create with a product brief (`__pvd/`)  
+2. Per phase: `bmad-ux` (mock HITL) → architecture → epics → stories → `bmad-prd` / build  
+3. When that phase’s **build** is done (not after PRD): `pvd-product-vision` **Close** — archives `_bmad-output` / `docs` to `__phaseN_*`; `__pvd/` stays; fresh BMad install for the next phase  
 
 ## License
 

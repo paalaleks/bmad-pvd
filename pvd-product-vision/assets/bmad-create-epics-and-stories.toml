@@ -1,0 +1,19 @@
+# Team override for bmad-create-epics-and-stories.
+# UX runs before epics; UI-heavy stories carry mockup/skip pointers so they do not get lost.
+
+[workflow]
+
+persistent_facts = [
+  "file:{project-root}/_bmad-output/planning-artifacts/ux-designs/**/DESIGN.md",
+  "file:{project-root}/_bmad-output/planning-artifacts/ux-designs/**/EXPERIENCE.md",
+  """\
+UI-heavy epic/story policy (after bmad-ux):
+
+  - If a finalized UX run exists under planning-artifacts/ux-designs/, treat its mockups/ and mock-coverage / skip rationales as required context.
+  - For each story that changes user-visible UI (not API-only / infra-only), include in the story brief or AC guidance:
+      (a) link/path to the approved HTML mockup(s), OR
+      (b) explicit skip rationale copied from UX (e.g. standard auth).
+  - Do not invent new screens in epics without pointing at UX spines; if a story needs novel UI not covered by UX, flag it as needing a UX Update + mock HITL before ready-for-dev.
+  - Non-UI stories: omit mockup fields entirely.
+""",
+]

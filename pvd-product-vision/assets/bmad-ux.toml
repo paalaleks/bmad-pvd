@@ -1,0 +1,28 @@
+# Team override for bmad-ux (_bmad/custom/). Committed; survives BMad updates.
+# Merge: persistent_facts APPEND, on_complete OVERRIDES.
+# Policy: UX (DESIGN + EXPERIENCE + HTML mock HITL) runs before epics/stories.
+# Cheap HTML mockups are approved (or skipped with rationale) before handoff.
+
+[workflow]
+
+persistent_facts = [
+  "Ordering: finalize this UX run before create-epics-and-stories. Epics and stories inherit spines + approved (or skip-rationale) mockups — they do not invent visual UI from scratch.",
+  """\
+HTML mockup HITL (Finalize — before handoff to epics):
+
+  1. List every UI-heavy / novel surface from IA and journeys (exclude pure API/backend-only).
+  2. For each surface (or cohesive group), ask HITL once:
+     - Produce an inexpensive static HTML mockup under mockups/ (tokens from DESIGN.md), then get explicit approval; OR
+     - Skip mockup with a written rationale (e.g. standard auth, stock settings/CRUD, identical to an already-approved mock).
+  3. Never silently skip. Never proceed to "spines finalized" / epics handoff while any UI-heavy surface is neither mocked-and-approved nor skip-with-rationale.
+  4. Record outcomes in .memlog.md (decision/event) and surface them in EXPERIENCE.md (Key Flows / Component Patterns or a short Mock coverage section): path to HTML, or skip + rationale.
+  5. Standard patterns (login, signup, password reset, generic empty/error) default to skip-eligible — still ask, still require a one-line rationale if skipped.
+""",
+  "Handoff note for epics/stories: UI-heavy stories must cite the approved mockup path(s) under the UX run's mockups/ folder, or the skip rationale. Dev implements against DESIGN.md + EXPERIENCE.md + those mocks — not freehand visual invention.",
+]
+
+on_complete = """\
+Confirm mock coverage is complete (every UI-heavy surface: approved HTML in mockups/ OR skip+rationale in memlog/EXPERIENCE).
+Then point the user to next: bmad-architecture (if needed) → bmad-create-epics-and-stories.
+Remind: UI-heavy stories should reference these mockups or skip rationales so the gate does not get lost.
+"""
