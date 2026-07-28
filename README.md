@@ -42,7 +42,7 @@ npx bmad-method install \
 ├── LICENSE
 └── pvd-product-vision/
     ├── SKILL.md
-    ├── assets/          # outlines, module.yaml, team customize tomls
+    ├── assets/          # outlines, module.yaml, team customize tomls, pvd-package-readme.md
     ├── references/      # research.md, phase-close.md, phase-add.md
     └── scripts/
 ```

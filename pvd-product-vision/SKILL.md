@@ -15,7 +15,7 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 
 ## Constraints
 
-- Prefer principles and coherence over concrete codebase setup. Phase-local choices → offset or deferred list.
+- Prefer principles and coherence over concrete codebase setup. Phase-local choices → offset or deferred list. Before adding spine content, apply `{doc_workspace}/README.md` altitude test when that file exists (soft prior: `assets/pvd-package-readme.md`).
 - Write spine claims in architecture and AI vocabulary (when the program includes AI) so Research can search accurately.
 - Do not decide one-PRD vs many; the user chose the PVD path.
 - **Never** place the PVD package under `_bmad-output/` or `docs/` — those folders are archived per phase (`__phaseN_*`).
@@ -43,11 +43,11 @@ Act as the user's program-coherence partner: they hold the product vision; you d
 
 ## Intent Modes
 
-**Create.** Bind `{doc_workspace}` to `{project-root}/__pvd/`. Ensure `offsets/` exists. Write skeleton files with `status: draft` where useful. Seed memlog: `uv run {project-root}/_bmad/scripts/memlog.py init --path {doc_workspace}/.memlog.md --field topic="<program>"`. Tell the user the path. Run Discovery → Forge → Carve → Research → Finalize.
+**Create.** Bind `{doc_workspace}` to `{project-root}/__pvd/`. Ensure `offsets/` exists. If `{doc_workspace}/README.md` is missing, copy `./assets/pvd-package-readme.md` there (edit-judgment for the package — altitude test, where things go). Write skeleton files with `status: draft` where useful. Seed memlog: `uv run {project-root}/_bmad/scripts/memlog.py init --path {doc_workspace}/.memlog.md --field topic="<program>"`. Tell the user the path. Run Discovery → Forge → Carve → Research → Finalize.
 
-**Update.** Change signal against an existing package that is *not* primarily "add a new phase" (principle tweaks, deferred list, offset edits, rename). Read `pvd.md`, `architecture-principles.md`, `deferred-decisions.md`, `phases.md`, offsets, `feasibility-research.md` if present, and `.memlog.md` once. Surface conflicts with prior decisions before applying. Re-run Research when the change touches tech/architecture principles. Then Finalize. If the user wants a net-new strategic phase, switch to **Add Phase**.
+**Update.** Change signal against an existing package that is *not* primarily "add a new phase" (principle tweaks, deferred list, offset edits, rename). Read `{doc_workspace}/README.md` first when present and apply its altitude test before adding spine content. Read `pvd.md`, `architecture-principles.md`, `deferred-decisions.md`, `phases.md`, offsets, `feasibility-research.md` if present, and `.memlog.md` once. Surface conflicts with prior decisions before applying. Re-run Research when the change touches tech/architecture principles. Then Finalize. If the user wants a net-new strategic phase, switch to **Add Phase**.
 
-**Add Phase.** Load `references/phase-add.md` and run that ritual. **Reconcile PVD ↔ codebase/docs/archives first** (optional: `bmad-document-project` / project-context). Fix or defer gaps, then carve `offsets/phase-NN-<slug>.md` + `phases.md` row with collision check. Research only if spine/ownership changed. Finalize the delta and hand off to `bmad-prd` for the new phase (after Close of any in-flight phase if needed).
+**Add Phase.** Load `references/phase-add.md` and run that ritual. Read `{doc_workspace}/README.md` when present (altitude test still applies to any spine edits during reconcile). **Reconcile PVD ↔ codebase/docs/archives first** (optional: `bmad-document-project` / project-context). Fix or defer gaps, then carve `offsets/phase-NN-<slug>.md` + `phases.md` row with collision check. Research only if spine/ownership changed. Finalize the delta and hand off to `bmad-prd` for the new phase (after Close of any in-flight phase if needed).
 
 **Overview.** Read the package (and optional links to child BMM artifacts the user points at). Scan `{project-root}` for `__phase*_bmad-output` / `__phase*_docs` and reconcile with `phases.md`. Refresh `phases.md` so a newcomer sees phase status, ownership boundaries, archive paths, and pointers to offsets / child PRDs. Do not rewrite principles unless the user switches to Update or Add Phase. If the user is ready to finish a build phase, offer **Close**; if vision grew, offer **Add Phase**.
 
