@@ -43,7 +43,7 @@ npx bmad-method install \
 └── pvd-product-vision/
     ├── SKILL.md
     ├── assets/          # outlines, module.yaml, team customize tomls
-    ├── references/      # research.md, phase-close.md
+    ├── references/      # research.md, phase-close.md, phase-add.md
     └── scripts/
 ```
 
@@ -52,6 +52,7 @@ npx bmad-method install \
 1. `pvd-product-vision` — Create with a product brief (`__pvd/`)  
 2. Per phase: `bmad-ux` (mock HITL) → architecture → epics → stories → `bmad-prd` / build  
 3. When that phase’s **build** is done (not after PRD): `pvd-product-vision` **Close** — archives `_bmad-output` / `docs` to `__phaseN_*`; `__pvd/` stays; fresh BMad install for the next phase  
+4. Vision grew / new stage: `pvd-product-vision` **Add Phase** — reconcile PVD vs codebase first, then carve the new offset  
 
 ## License
 

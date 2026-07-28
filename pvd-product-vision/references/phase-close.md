@@ -10,10 +10,10 @@ Do **not** archive after PRD alone — PRD is the start of the phase cycle.
 
 ## What moves vs what stays
 
-| Path | On Close |
-| ---- | -------- |
-| `_bmad-output/` | Rename → `__phaseN_bmad-output/` |
-| `docs/` | Rename → `__phaseN_docs/` (skip if missing/empty) |
+| Path                    | On Close                                                |
+| ----------------------- | ------------------------------------------------------- |
+| `_bmad-output/`         | Rename → `__phaseN_bmad-output/`                        |
+| `docs/`                 | Rename → `__phaseN_docs/` (skip if missing/empty)       |
 | `{project-root}/__pvd/` | **Stays.** Program spine — never archive with the phase |
 
 Examples: `__phase1_bmad-output`, `__phase2_docs`. Phase number from `phases.md` / offset (`phase-01` → `1`). No brackets in the folder name.

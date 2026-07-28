@@ -1,6 +1,6 @@
 ---
 name: pvd-product-vision
-description: Forge a Product Vision Document and phase offsets. Use when the user says 'create PVD', 'product vision document', 'program spine', 'close phase', 'archive phase', or wants multi-phase PRD coherence before BMM.
+description: Forge a Product Vision Document and phase offsets. Use when the user says 'create PVD', 'product vision document', 'program spine', 'close phase', 'archive phase', 'add phase', 'new phase', or wants multi-phase PRD coherence before BMM.
 ---
 
 # Product Vision Document
@@ -38,19 +38,20 @@ Act as the user's program-coherence partner: they hold the product vision; you d
    - Else (no BMad config yet) → full `./assets/module-setup.md` interactive setup.
 1. Load `{project-root}/_bmad/bmm/config.yaml` (+ `config.user.yaml` if present) and/or `{project-root}/_bmad/config.toml`. Resolve `{user_name}`, `{communication_language}`, `{document_output_language}`, `{planning_artifacts}`, `{project_name}`, `{date}`. Missing keys → sensible defaults; never block.
 2. Greet `{user_name}` in `{communication_language}` and stay in that language. Mention `bmad-party-mode` / `bmad-advanced-elicitation` if useful later.
-3. Detect intent: **Create** (new or empty PVD), **Update** (revise existing), **Overview** (where-we-are), **Close** (archive a finished build phase). If ambiguous, ask once. Scan `{doc_workspace}` for existing `pvd.md` / `.memlog.md` — offer resume when an in-progress package exists. Phrases like "close phase", "archive phase", "phase N done", "__phase" → **Close**.
+3. Detect intent: **Create** (new or empty PVD), **Update** (revise existing), **Add Phase** (new phase after reconcile), **Overview** (where-we-are), **Close** (archive a finished build phase). If ambiguous, ask once. Scan `{doc_workspace}` for existing `pvd.md` / `.memlog.md` — offer resume when an in-progress package exists. Phrases like "close phase", "archive phase", "phase N done", "__phase" → **Close**. Phrases like "add phase", "new phase", "vision grew", "another stage" → **Add Phase**.
 4. Resume: if `{doc_workspace}/.memlog.md` exists, read it once, then append-only. Else on Create, init after binding the workspace.
 
 ## Intent Modes
 
 **Create.** Bind `{doc_workspace}` to `{project-root}/__pvd/`. Ensure `offsets/` exists. Write skeleton files with `status: draft` where useful. Seed memlog: `uv run {project-root}/_bmad/scripts/memlog.py init --path {doc_workspace}/.memlog.md --field topic="<program>"`. Tell the user the path. Run Discovery → Forge → Carve → Research → Finalize.
 
-**Update.** Change signal against an existing package. Read `pvd.md`, `architecture-principles.md`, `deferred-decisions.md`, `phases.md`, offsets, `feasibility-research.md` if present, and `.memlog.md` once. Surface conflicts with prior decisions before applying. Re-run Research when the change touches tech/architecture principles. Then Finalize.
+**Update.** Change signal against an existing package that is *not* primarily "add a new phase" (principle tweaks, deferred list, offset edits, rename). Read `pvd.md`, `architecture-principles.md`, `deferred-decisions.md`, `phases.md`, offsets, `feasibility-research.md` if present, and `.memlog.md` once. Surface conflicts with prior decisions before applying. Re-run Research when the change touches tech/architecture principles. Then Finalize. If the user wants a net-new strategic phase, switch to **Add Phase**.
 
-**Overview.** Read the package (and optional links to child BMM artifacts the user points at). Scan `{project-root}` for `__phase*_bmad-output` / `__phase*_docs` and reconcile with `phases.md`. Refresh `phases.md` so a newcomer sees phase status, ownership boundaries, archive paths, and pointers to offsets / child PRDs. Do not rewrite principles unless the user switches to Update. If the user is ready to finish a build phase, offer **Close**.
+**Add Phase.** Load `references/phase-add.md` and run that ritual. **Reconcile PVD ↔ codebase/docs/archives first** (optional: `bmad-document-project` / project-context). Fix or defer gaps, then carve `offsets/phase-NN-<slug>.md` + `phases.md` row with collision check. Research only if spine/ownership changed. Finalize the delta and hand off to `bmad-prd` for the new phase (after Close of any in-flight phase if needed).
+
+**Overview.** Read the package (and optional links to child BMM artifacts the user points at). Scan `{project-root}` for `__phase*_bmad-output` / `__phase*_docs` and reconcile with `phases.md`. Refresh `phases.md` so a newcomer sees phase status, ownership boundaries, archive paths, and pointers to offsets / child PRDs. Do not rewrite principles unless the user switches to Update or Add Phase. If the user is ready to finish a build phase, offer **Close**; if vision grew, offer **Add Phase**.
 
 **Close.** Load `references/phase-close.md` and run that ritual. Gate: phase **build** complete (full BMM delivery), not "PRD finished." Confirm phase number N with the user. Rename `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs` (skip docs rename if absent). Leave `{project-root}/__pvd/` untouched. Update `phases.md` (status, archive paths, date, next offset). Tell the user to run a fresh `npx bmad-method install`, then start the next phase’s `bmad-prd` using the same `{project-root}/__pvd/` sources. Append memlog event for the close. Same project root — archive + reinstall, no nesting.
-
 ## Discovery
 
 Open the floor: invite the full product vision and any written brief, brain dump, or docs to read. Paths or paste. Soft "anything else?" after. Mine what you hold before asking; gaps a question or two at a time.
@@ -78,7 +79,7 @@ Produce collision-safe phases:
 - `phases.md` — registry, ownership map, how child PRDs compose (`pvd.md` + offset + optional extras). Include per-phase fields the Close ritual will fill later: `status` (e.g. planned / in-build / archived), and placeholders for `archive_bmad_output` / `archive_docs` (empty until Close).
 - `offsets/phase-NN-<slug>.md` — phase-scoped vision slices
 
-**Lifecycle (simple):** each phase is a full BMM cycle at this project root. After **build** completes (not after PRD), **Close** archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`, then a fresh BMad install starts the next cycle. Details: `references/phase-close.md`.
+**Lifecycle (simple):** each phase is a full BMM cycle at this project root. After **build** completes (not after PRD), **Close** archives `_bmad-output` → `__phaseN_bmad-output` and `docs` → `__phaseN_docs`, then a fresh BMad install starts the next *already-carved* cycle. To introduce a phase that was not in the original Carve, use **Add Phase** (`references/phase-add.md`) — reconcile PVD ↔ reality first. Details for Close: `references/phase-close.md`.
 
 **Collision rule:** two phases must not both own the same source tree or deployable. Shared packages are stable contracts, not dual-owned guts.
 
@@ -98,4 +99,4 @@ Run after Forge + Carve (and on Update when principles change) — **not** befor
 
 ## Headless Mode
 
-When invoked headless, do not ask. Complete the intent from provided paths and existing `{doc_workspace}`. If intent is ambiguous, halt with JSON `status: blocked` and `reason`. Otherwise end with JSON: `status`, `intent` (`create`|`update`|`overview`|`close`), and artifact paths produced (for `close`: archive folder names + updated `phases.md`).
+When invoked headless, do not ask. Complete the intent from provided paths and existing `{doc_workspace}`. If intent is ambiguous, halt with JSON `status: blocked` and `reason`. Otherwise end with JSON: `status`, `intent` (`create`|`update`|`add-phase`|`overview`|`close`), and artifact paths produced (for `close`: archive folder names + updated `phases.md`; for `add-phase`: new offset path + reconcile summary).
